@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coliseo Romano AR</title>
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #1a0f0a;
+      font-family: Arial, sans-serif;
+      color: white;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    header {
+      width: 100%;
+      background: #2c1810;
+      padding: 16px 20px;
+      text-align: center;
+      border-bottom: 2px solid #8B6914;
+    }
+    header h1 {
+      font-size: 22px;
+      color: #D4A853;
+      letter-spacing: 1px;
+    }
+    header p {
+      font-size: 12px;
+      color: #a08060;
+      margin-top: 4px;
+    }
+    model-viewer {
+      width: 100vw;
+      height: 75vh;
+      background: transparent;
+    }
+    .ar-button {
+      background: #8B6914;
+      color: white;
+      border: none;
+      padding: 14px 32px;
+      border-radius: 30px;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+      letter-spacing: 0.5px;
+      box-shadow: 0 4px 15px rgba(212,168,83,0.4);
+    }
+    .info {
+      font-size: 12px;
+      color: #806040;
+      text-align: center;
+      padding: 12px 20px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🏛 COLISEO ROMANO</h1>
+    <p>Reconstrucción histórica · Siglo I d.C.</p>
+  </header>
+
+  <model-viewer
+    src="https://github.com/daigual2-hash/coliseo-ar-assets/releases/download/v1.0/coliseofinal.usdz"
+    ios-src="https://github.com/daigual2-hash/coliseo-ar-assets/releases/download/v1.0/coliseofinal.usdz"
+    ar
+    ar-modes="webxr scene-viewer quick-look"
+    camera-controls
+    auto-rotate
+    shadow-intensity="1"
+    exposure="0.9"
+    camera-orbit="45deg 75deg 200%"
+    alt="Coliseo Romano reconstruido">
+    <button slot="ar-button" class="ar-button">
+      📷 Ver en Realidad Aumentada
+    </button>
+  </model-viewer>
+
+  <p class="info">
+    Rota el modelo con el dedo · Pellizca para hacer zoom<br>
+    Toca "Ver en AR" para verlo en tu entorno real
+  </p>
+</body>
+</html>
