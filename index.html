@@ -112,9 +112,162 @@
       text-align: center;
       padding: 12px 20px;
     }
+
+    /* ═══════════════════════════════════════
+       BOTÓN Y PANEL DE INFORMACIÓN HISTÓRICA
+    ═══════════════════════════════════════ */
+    #boton-info {
+      position: fixed;
+      top: 14px;
+      right: 14px;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #8B6914;
+      border: none;
+      color: white;
+      font-size: 18px;
+      cursor: pointer;
+      z-index: 20;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    }
+
+    #overlay-info {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.75);
+      z-index: 30;
+      align-items: flex-end;
+      justify-content: center;
+    }
+    #overlay-info.abierto {
+      display: flex;
+    }
+    #panel-info {
+      background: #2c1810;
+      width: 100%;
+      max-width: 520px;
+      max-height: 82vh;
+      overflow-y: auto;
+      border-radius: 18px 18px 0 0;
+      border-top: 2px solid #8B6914;
+      padding: 20px 22px 30px;
+    }
+    #panel-info h2 {
+      color: #D4A853;
+      font-size: 20px;
+      margin-bottom: 2px;
+    }
+    #panel-info .subtitulo {
+      color: #a08060;
+      font-size: 12px;
+      margin-bottom: 16px;
+    }
+    #cerrar-info {
+      float: right;
+      background: none;
+      border: none;
+      color: #a08060;
+      font-size: 22px;
+      cursor: pointer;
+      line-height: 1;
+    }
+    .dato {
+      display: flex;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid #4a2f1a;
+    }
+    .dato:last-child {
+      border-bottom: none;
+    }
+    .dato-icono {
+      font-size: 22px;
+      flex-shrink: 0;
+      width: 28px;
+      text-align: center;
+    }
+    .dato-titulo {
+      color: #D4A853;
+      font-size: 13px;
+      font-weight: bold;
+      margin-bottom: 3px;
+    }
+    .dato-texto {
+      color: #e8dcc8;
+      font-size: 13px;
+      line-height: 1.5;
+    }
   </style>
 </head>
 <body>
+  <button id="boton-info" onclick="toggleInfo(true)">ℹ️</button>
+
+  <div id="overlay-info" onclick="cerrarSiEsFondo(event)">
+    <div id="panel-info">
+      <button id="cerrar-info" onclick="toggleInfo(false)">✕</button>
+      <h2>🏛 El Coliseo Romano</h2>
+      <p class="subtitulo">Anfiteatro Flavio · Roma, Italia</p>
+
+      <div class="dato">
+        <span class="dato-icono">📅</span>
+        <div>
+          <div class="dato-titulo">Construcción</div>
+          <div class="dato-texto">Iniciada en el año 72 d.C. bajo el emperador Vespasiano. Inaugurada en el 80 d.C. por su hijo Tito, con 100 días de juegos. El cuarto nivel lo añadió Domiciano en el año 82 d.C.</div>
+        </div>
+      </div>
+
+      <div class="dato">
+        <span class="dato-icono">📐</span>
+        <div>
+          <div class="dato-titulo">Dimensiones</div>
+          <div class="dato-texto">189 x 156 metros de forma elíptica, con una altura de unos 48-50 metros (equivalente a un edificio de 12-15 pisos). Fue el anfiteatro más grande jamás construido.</div>
+        </div>
+      </div>
+
+      <div class="dato">
+        <span class="dato-icono">👥</span>
+        <div>
+          <div class="dato-titulo">Capacidad</div>
+          <div class="dato-texto">Entre 50,000 y 80,000 espectadores, sentados según su clase social — desde el emperador y senadores cerca de la arena hasta la plebe en los asientos de madera más altos.</div>
+        </div>
+      </div>
+
+      <div class="dato">
+        <span class="dato-icono">🧱</span>
+        <div>
+          <div class="dato-titulo">Materiales</div>
+          <div class="dato-texto">Fachada de travertino, muros internos de toba volcánica, bóvedas de hormigón romano con ladrillo, y mármol en los asientos y balaustradas. Los bloques de travertino se unían con grapas de hierro, sin mortero.</div>
+        </div>
+      </div>
+
+      <div class="dato">
+        <span class="dato-icono">⚔️</span>
+        <div>
+          <div class="dato-titulo">¿Para qué se usaba?</div>
+          <div class="dato-texto">Combates de gladiadores, cacerías de animales exóticos traídos de todo el imperio, ejecuciones públicas, y hasta simulacros de batallas navales en sus primeros años de uso.</div>
+        </div>
+      </div>
+
+      <div class="dato">
+        <span class="dato-icono">⛵</span>
+        <div>
+          <div class="dato-titulo">El velarium</div>
+          <div class="dato-texto">Un toldo gigante daba sombra al público, sostenido por 240 mástiles de madera en el borde superior y operado por marineros de la flota imperial, como si maniobraran las velas de un barco.</div>
+        </div>
+      </div>
+
+      <div class="dato">
+        <span class="dato-icono">🏺</span>
+        <div>
+          <div class="dato-titulo">¿Por qué se llama "Coliseo"?</div>
+          <div class="dato-texto">Su nombre oficial era Anfiteatro Flavio. El apodo "Coliseo" no viene de su tamaño, sino de una estatua colosal de Nerón (el Coloso) que estaba junto a la entrada.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <header>
     <h1>🏛 COLISEO ROMANO</h1>
     <p>Reconstrucción histórica · Siglo I d.C.</p>
@@ -260,6 +413,22 @@
       const dirs = ['Norte', 'Noreste', 'Este', 'Sureste', 'Sur', 'Suroeste', 'Oeste', 'Noroeste'];
       const idx = Math.round(grados / 45) % 8;
       return dirs[idx];
+    }
+
+    // Panel de información histórica
+    function toggleInfo(abrir) {
+      const overlay = document.getElementById('overlay-info');
+      if (abrir) {
+        overlay.classList.add('abierto');
+      } else {
+        overlay.classList.remove('abierto');
+      }
+    }
+
+    function cerrarSiEsFondo(evento) {
+      if (evento.target.id === 'overlay-info') {
+        toggleInfo(false);
+      }
     }
   </script>
 </body>
