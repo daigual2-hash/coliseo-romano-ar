@@ -178,6 +178,35 @@
       box-shadow: 0 2px 10px rgba(0,0,0,0.5);
     }
 
+    /* ═══ Selector de idioma ═══ */
+    #selector-idioma {
+      position: fixed;
+      top: 14px;
+      left: 14px;
+      z-index: 20;
+      display: flex;
+      background: var(--carbon-superficie);
+      border: 1px solid var(--bronce);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    }
+    .idioma-btn {
+      background: none;
+      border: none;
+      color: var(--piedra-tenue);
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      padding: 8px 10px;
+      cursor: pointer;
+    }
+    .idioma-btn.activo {
+      background: var(--bronce);
+      color: var(--carbon-hondo);
+    }
+
     #overlay-info {
       display: none;
       position: fixed;
@@ -265,75 +294,80 @@
 </head>
 <body>
   <div class="franja-arcos"></div>
+  <div id="selector-idioma">
+    <button class="idioma-btn activo" id="btn-idioma-es" onclick="cambiarIdioma('es')">ES</button>
+    <button class="idioma-btn" id="btn-idioma-en" onclick="cambiarIdioma('en')">EN</button>
+    <button class="idioma-btn" id="btn-idioma-it" onclick="cambiarIdioma('it')">IT</button>
+  </div>
   <button id="boton-info" onclick="toggleInfo(true)">ℹ</button>
 
   <div id="overlay-info" onclick="cerrarSiEsFondo(event)">
     <div id="panel-info">
       <button id="cerrar-info" onclick="toggleInfo(false)">✕</button>
-      <h2>El Coliseo Romano</h2>
-      <p class="subtitulo">Anfiteatro Flavio · Roma, Italia</p>
+      <h2 id="txt-panel-titulo">El Coliseo Romano</h2>
+      <p class="subtitulo" id="txt-panel-subtitulo">Anfiteatro Flavio · Roma, Italia</p>
 
       <div class="dato">
         <span class="dato-numeral">I</span>
         <div>
-          <div class="dato-titulo">Construcción</div>
-          <div class="dato-texto">Iniciada en el año 72 d.C. bajo el emperador Vespasiano. Inaugurada en el 80 d.C. por su hijo Tito, con 100 días de juegos. El cuarto nivel lo añadió Domiciano en el año 82 d.C.</div>
+          <div class="dato-titulo" id="txt-titulo-1">Construcción</div>
+          <div class="dato-texto" id="txt-texto-1">Iniciada en el año 72 d.C. bajo el emperador Vespasiano. Inaugurada en el 80 d.C. por su hijo Tito, con 100 días de juegos. El cuarto nivel lo añadió Domiciano en el año 82 d.C.</div>
         </div>
       </div>
 
       <div class="dato">
         <span class="dato-numeral">II</span>
         <div>
-          <div class="dato-titulo">Dimensiones</div>
-          <div class="dato-texto">189 x 156 metros de forma elíptica, con una altura de unos 48-50 metros (equivalente a un edificio de 12-15 pisos). Fue el anfiteatro más grande jamás construido.</div>
+          <div class="dato-titulo" id="txt-titulo-2">Dimensiones</div>
+          <div class="dato-texto" id="txt-texto-2">189 x 156 metros de forma elíptica, con una altura de unos 48-50 metros (equivalente a un edificio de 12-15 pisos). Fue el anfiteatro más grande jamás construido.</div>
         </div>
       </div>
 
       <div class="dato">
         <span class="dato-numeral">III</span>
         <div>
-          <div class="dato-titulo">Capacidad</div>
-          <div class="dato-texto">Entre 50,000 y 80,000 espectadores, sentados según su clase social — desde el emperador y senadores cerca de la arena hasta la plebe en los asientos de madera más altos.</div>
+          <div class="dato-titulo" id="txt-titulo-3">Capacidad</div>
+          <div class="dato-texto" id="txt-texto-3">Entre 50,000 y 80,000 espectadores, sentados según su clase social — desde el emperador y senadores cerca de la arena hasta la plebe en los asientos de madera más altos.</div>
         </div>
       </div>
 
       <div class="dato">
         <span class="dato-numeral">IV</span>
         <div>
-          <div class="dato-titulo">Materiales</div>
-          <div class="dato-texto">Fachada de travertino, muros internos de toba volcánica, bóvedas de hormigón romano con ladrillo, y mármol en los asientos y balaustradas. Los bloques de travertino se unían con grapas de hierro, sin mortero.</div>
+          <div class="dato-titulo" id="txt-titulo-4">Materiales</div>
+          <div class="dato-texto" id="txt-texto-4">Fachada de travertino, muros internos de toba volcánica, bóvedas de hormigón romano con ladrillo, y mármol en los asientos y balaustradas. Los bloques de travertino se unían con grapas de hierro, sin mortero.</div>
         </div>
       </div>
 
       <div class="dato">
         <span class="dato-numeral">V</span>
         <div>
-          <div class="dato-titulo">¿Para qué se usaba?</div>
-          <div class="dato-texto">Combates de gladiadores, cacerías de animales exóticos traídos de todo el imperio, ejecuciones públicas, y hasta simulacros de batallas navales en sus primeros años de uso.</div>
+          <div class="dato-titulo" id="txt-titulo-5">¿Para qué se usaba?</div>
+          <div class="dato-texto" id="txt-texto-5">Combates de gladiadores, cacerías de animales exóticos traídos de todo el imperio, ejecuciones públicas, y hasta simulacros de batallas navales en sus primeros años de uso.</div>
         </div>
       </div>
 
       <div class="dato">
         <span class="dato-numeral">VI</span>
         <div>
-          <div class="dato-titulo">El velarium</div>
-          <div class="dato-texto">Un toldo gigante daba sombra al público, sostenido por 240 mástiles de madera en el borde superior y operado por marineros de la flota imperial, como si maniobraran las velas de un barco.</div>
+          <div class="dato-titulo" id="txt-titulo-6">El velarium</div>
+          <div class="dato-texto" id="txt-texto-6">Un toldo gigante daba sombra al público, sostenido por 240 mástiles de madera en el borde superior y operado por marineros de la flota imperial, como si maniobraran las velas de un barco.</div>
         </div>
       </div>
 
       <div class="dato">
         <span class="dato-numeral">VII</span>
         <div>
-          <div class="dato-titulo">¿Por qué se llama "Coliseo"?</div>
-          <div class="dato-texto">Su nombre oficial era Anfiteatro Flavio. El apodo "Coliseo" no viene de su tamaño, sino de una estatua colosal de Nerón (el Coloso) que estaba junto a la entrada. Curiosamente, los romanos numeraban en rojo cada una de sus 80 entradas — la misma idea que uso arriba para ordenar estos datos.</div>
+          <div class="dato-titulo" id="txt-titulo-7">¿Por qué se llama "Coliseo"?</div>
+          <div class="dato-texto" id="txt-texto-7">Su nombre oficial era Anfiteatro Flavio. El apodo "Coliseo" no viene de su tamaño, sino de una estatua colosal de Nerón (el Coloso) que estaba junto a la entrada. Curiosamente, los romanos numeraban en rojo cada una de sus 80 entradas — la misma idea que uso arriba para ordenar estos datos.</div>
         </div>
       </div>
     </div>
   </div>
 
   <header>
-    <h1>Coliseo Romano</h1>
-    <p>Reconstrucción histórica · Anfiteatro Flavio, 80 d.C.</p>
+    <h1 id="txt-titulo">Coliseo Romano</h1>
+    <p id="txt-subtitulo">Reconstrucción histórica · Anfiteatro Flavio, 80 d.C.</p>
   </header>
 
   <div id="panel-gps">
@@ -353,17 +387,139 @@
     exposure="0.9"
     camera-orbit="45deg 75deg 200%"
     alt="Coliseo Romano reconstruido">
-    <button slot="ar-button" class="ar-button">
+    <button slot="ar-button" class="ar-button" id="txt-ar-boton">
       Ver en Realidad Aumentada
     </button>
   </model-viewer>
 
   <p class="info">
-    Rota el modelo con el dedo · Pellizca para hacer zoom<br>
-    Toca "Ver en Realidad Aumentada" para verlo en tu entorno real
+    <span id="txt-info-l1">Rota el modelo con el dedo · Pellizca para hacer zoom</span><br>
+    <span id="txt-info-l2">Toca "Ver en Realidad Aumentada" para verlo en tu entorno real</span>
   </p>
 
   <script>
+    // ═══════════════════════════════════════
+    //  TRADUCCIONES
+    // ═══════════════════════════════════════
+    const IDIOMAS = {
+      es: {
+        titulo: 'Coliseo Romano',
+        subtitulo: 'Reconstrucción histórica · Anfiteatro Flavio, 80 d.C.',
+        gpsInicial: 'Toca el botón para activar la ubicación',
+        gpsBoton: 'Activar GPS',
+        gpsBuscando: 'Buscando tu ubicación...',
+        gpsSinSoporte: 'Este navegador no soporta geolocalización.',
+        gpsEnElSitio: '<strong>Estás en el Coliseo.</strong> Apunta la cámara hacia las ruinas y toca "Ver en Realidad Aumentada".',
+        gpsCerca: d => `Estás a <strong>${d} m</strong> del Coliseo. Sigue caminando.`,
+        gpsLejos: (d, dir) => `Estás a <strong>${d}</strong> del Coliseo (${dir}). La vista AR funciona mejor si estás ahí en persona.`,
+        gpsPermisoDenegado: 'No diste permiso de ubicación. Actívalo en los ajustes de Safari para esta página.',
+        gpsErrorGeneral: 'No se pudo obtener tu ubicación. Revisa tu señal GPS/WiFi.',
+        gpsReintentar: 'Reintentar',
+        arBoton: 'Ver en Realidad Aumentada',
+        infoL1: 'Rota el modelo con el dedo · Pellizca para hacer zoom',
+        infoL2: 'Toca "Ver en Realidad Aumentada" para verlo en tu entorno real',
+        direcciones: ['Norte', 'Noreste', 'Este', 'Sureste', 'Sur', 'Suroeste', 'Oeste', 'Noroeste'],
+        panelTitulo: 'El Coliseo Romano',
+        panelSubtitulo: 'Anfiteatro Flavio · Roma, Italia',
+        datos: [
+          ['Construcción', 'Iniciada en el año 72 d.C. bajo el emperador Vespasiano. Inaugurada en el 80 d.C. por su hijo Tito, con 100 días de juegos. El cuarto nivel lo añadió Domiciano en el año 82 d.C.'],
+          ['Dimensiones', '189 x 156 metros de forma elíptica, con una altura de unos 48-50 metros (equivalente a un edificio de 12-15 pisos). Fue el anfiteatro más grande jamás construido.'],
+          ['Capacidad', 'Entre 50,000 y 80,000 espectadores, sentados según su clase social — desde el emperador y senadores cerca de la arena hasta la plebe en los asientos de madera más altos.'],
+          ['Materiales', 'Fachada de travertino, muros internos de toba volcánica, bóvedas de hormigón romano con ladrillo, y mármol en los asientos y balaustradas. Los bloques de travertino se unían con grapas de hierro, sin mortero.'],
+          ['¿Para qué se usaba?', 'Combates de gladiadores, cacerías de animales exóticos traídos de todo el imperio, ejecuciones públicas, y hasta simulacros de batallas navales en sus primeros años de uso.'],
+          ['El velarium', 'Un toldo gigante daba sombra al público, sostenido por 240 mástiles de madera en el borde superior y operado por marineros de la flota imperial, como si maniobraran las velas de un barco.'],
+          ['¿Por qué se llama "Coliseo"?', 'Su nombre oficial era Anfiteatro Flavio. El apodo "Coliseo" no viene de su tamaño, sino de una estatua colosal de Nerón (el Coloso) que estaba junto a la entrada. Curiosamente, los romanos numeraban en rojo cada una de sus 80 entradas — la misma idea que uso arriba para ordenar estos datos.'],
+        ],
+      },
+      en: {
+        titulo: 'Roman Colosseum',
+        subtitulo: 'Historical Reconstruction · Flavian Amphitheatre, 80 AD',
+        gpsInicial: 'Tap the button to enable location',
+        gpsBoton: 'Enable GPS',
+        gpsBuscando: 'Finding your location...',
+        gpsSinSoporte: "This browser doesn't support geolocation.",
+        gpsEnElSitio: '<strong>You\'re at the Colosseum.</strong> Point your camera at the ruins and tap "View in Augmented Reality".',
+        gpsCerca: d => `You're <strong>${d} m</strong> from the Colosseum. Keep walking.`,
+        gpsLejos: (d, dir) => `You're <strong>${d}</strong> from the Colosseum (${dir}). The AR view works best in person.`,
+        gpsPermisoDenegado: "You didn't grant location permission. Enable it in Safari settings for this page.",
+        gpsErrorGeneral: "Couldn't get your location. Check your GPS/WiFi signal.",
+        gpsReintentar: 'Retry',
+        arBoton: 'View in Augmented Reality',
+        infoL1: 'Rotate the model with your finger · Pinch to zoom',
+        infoL2: 'Tap "View in Augmented Reality" to see it in your surroundings',
+        direcciones: ['North', 'Northeast', 'East', 'Southeast', 'South', 'Southwest', 'West', 'Northwest'],
+        panelTitulo: 'The Roman Colosseum',
+        panelSubtitulo: 'Flavian Amphitheatre · Rome, Italy',
+        datos: [
+          ['Construction', 'Begun in 72 AD under Emperor Vespasian. Dedicated in 80 AD by his son Titus, with 100 days of games. The fourth level was added by Domitian in 82 AD.'],
+          ['Dimensions', '189 x 156 meters, elliptical, standing about 48-50 meters tall (roughly a 12-15 story building). It was the largest amphitheatre ever built.'],
+          ['Capacity', 'Between 50,000 and 80,000 spectators, seated according to social class — from the emperor and senators near the arena to common citizens on the highest wooden benches.'],
+          ['Materials', 'Travertine facade, interior walls of volcanic tuff, Roman concrete vaults faced with brick, and marble in the seating and balustrades. Travertine blocks were joined with iron clamps, without mortar.'],
+          ['What was it used for?', 'Gladiator combats, hunts of exotic animals brought from across the empire, public executions, and even mock naval battles in its early years.'],
+          ['The velarium', "A giant awning shaded the crowd, held up by 240 wooden masts around the upper rim and operated by sailors from the imperial fleet, as if handling a ship's sails."],
+          ['Why "Colosseum"?', 'Its official name was the Flavian Amphitheatre. The nickname "Colosseum" doesn\'t come from its size, but from a colossal statue of Nero (the Colossus) that stood by the entrance. Romans numbered its 80 entrances in red — the same idea used above to order these facts.'],
+        ],
+      },
+      it: {
+        titulo: 'Colosseo Romano',
+        subtitulo: 'Ricostruzione storica · Anfiteatro Flavio, 80 d.C.',
+        gpsInicial: 'Tocca il pulsante per attivare la posizione',
+        gpsBoton: 'Attiva GPS',
+        gpsBuscando: 'Ricerca della tua posizione...',
+        gpsSinSoporte: 'Questo browser non supporta la geolocalizzazione.',
+        gpsEnElSitio: '<strong>Sei al Colosseo.</strong> Punta la fotocamera verso le rovine e tocca "Vedi in Realtà Aumentata".',
+        gpsCerca: d => `Sei a <strong>${d} m</strong> dal Colosseo. Continua a camminare.`,
+        gpsLejos: (d, dir) => `Sei a <strong>${d}</strong> dal Colosseo (${dir}). La vista AR funziona meglio di persona.`,
+        gpsPermisoDenegado: 'Non hai concesso il permesso di posizione. Attivalo nelle impostazioni di Safari per questa pagina.',
+        gpsErrorGeneral: 'Impossibile ottenere la tua posizione. Controlla il segnale GPS/WiFi.',
+        gpsReintentar: 'Riprova',
+        arBoton: 'Vedi in Realtà Aumentata',
+        infoL1: 'Ruota il modello con il dito · Pizzica per zoomare',
+        infoL2: 'Tocca "Vedi in Realtà Aumentata" per vederlo nel tuo ambiente',
+        direcciones: ['Nord', 'Nordest', 'Est', 'Sudest', 'Sud', 'Sudovest', 'Ovest', 'Nordovest'],
+        panelTitulo: 'Il Colosseo Romano',
+        panelSubtitulo: 'Anfiteatro Flavio · Roma, Italia',
+        datos: [
+          ['Costruzione', "Iniziata nel 72 d.C. sotto l'imperatore Vespasiano. Inaugurata nell'80 d.C. dal figlio Tito, con 100 giorni di giochi. Il quarto livello fu aggiunto da Domiziano nell'82 d.C."],
+          ['Dimensioni', "189 x 156 metri, di forma ellittica, alto circa 48-50 metri (come un edificio di 12-15 piani). Fu il più grande anfiteatro mai costruito."],
+          ['Capienza', "Tra 50.000 e 80.000 spettatori, seduti secondo la classe sociale — dall'imperatore e i senatori vicino all'arena fino alla plebe sui posti di legno più alti."],
+          ['Materiali', "Facciata in travertino, muri interni in tufo vulcanico, volte in calcestruzzo romano rivestite di mattoni, e marmo nei sedili e nelle balaustre. I blocchi di travertino erano uniti con grappe di ferro, senza malta."],
+          ['A cosa serviva?', "Combattimenti di gladiatori, cacce di animali esotici portati da tutto l'impero, esecuzioni pubbliche, e persino simulazioni di battaglie navali nei suoi primi anni."],
+          ['Il velario', "Un enorme telone dava ombra al pubblico, sorretto da 240 alberi di legno sul bordo superiore e manovrato da marinai della flotta imperiale, come se maneggiassero le vele di una nave."],
+          ['Perché "Colosseo"?', 'Il suo nome ufficiale era Anfiteatro Flavio. Il soprannome "Colosseo" non deriva dalla sua dimensione, ma da una statua colossale di Nerone (il Colosso) che si trovava vicino all\'ingresso. I romani numeravano in rosso i suoi 80 ingressi — la stessa idea usata sopra per ordinare questi dati.'],
+        ],
+      },
+    };
+
+    let idiomaActual = 'es';
+
+    function cambiarIdioma(lang) {
+      idiomaActual = lang;
+      const t = IDIOMAS[lang];
+
+      document.documentElement.lang = lang;
+      document.getElementById('txt-titulo').textContent = t.titulo;
+      document.getElementById('txt-subtitulo').textContent = t.subtitulo;
+      document.getElementById('gps-boton').textContent = t.gpsBoton;
+      document.getElementById('txt-ar-boton').textContent = t.arBoton;
+      document.getElementById('txt-info-l1').textContent = t.infoL1;
+      document.getElementById('txt-info-l2').textContent = t.infoL2;
+      document.getElementById('txt-panel-titulo').textContent = t.panelTitulo;
+      document.getElementById('txt-panel-subtitulo').textContent = t.panelSubtitulo;
+      t.datos.forEach((par, i) => {
+        document.getElementById(`txt-titulo-${i + 1}`).textContent = par[0];
+        document.getElementById(`txt-texto-${i + 1}`).textContent = par[1];
+      });
+
+      // Si el GPS todavía no se ha activado, refresca el mensaje inicial
+      if (watchId === null) {
+        document.getElementById('gps-texto').textContent = t.gpsInicial;
+      }
+
+      document.querySelectorAll('.idioma-btn').forEach(b => b.classList.remove('activo'));
+      document.getElementById(`btn-idioma-${lang}`).classList.add('activo');
+    }
+
     // Coordenadas reales del Coliseo (centro aproximado de la arena)
     const COLISEO_LAT = 41.890251;
     const COLISEO_LON = 12.492373;
@@ -379,17 +535,18 @@
       const texto = document.getElementById('gps-texto');
       const icono = document.getElementById('gps-icono');
       const boton = document.getElementById('gps-boton');
+      const t = IDIOMAS[idiomaActual];
 
       if (!('geolocation' in navigator)) {
         panel.className = 'error';
         icono.textContent = '⚠';
-        texto.innerHTML = 'Este navegador no soporta geolocalización.';
+        texto.innerHTML = t.gpsSinSoporte;
         boton.style.display = 'none';
         return;
       }
 
       icono.textContent = '◌';
-      texto.textContent = 'Buscando tu ubicación...';
+      texto.textContent = t.gpsBuscando;
       boton.style.display = 'none';
 
       watchId = navigator.geolocation.watchPosition(
@@ -404,6 +561,7 @@
       const lon = pos.coords.longitude;
       const distancia = distanciaMetros(lat, lon, COLISEO_LAT, COLISEO_LON);
       const rumbo = rumboGrados(lat, lon, COLISEO_LAT, COLISEO_LON);
+      const t = IDIOMAS[idiomaActual];
 
       const panel = document.getElementById('panel-gps');
       const texto = document.getElementById('gps-texto');
@@ -412,18 +570,18 @@
       if (distancia <= RADIO_EN_EL_SITIO_METROS) {
         panel.className = 'cerca';
         icono.textContent = '✓';
-        texto.innerHTML = '<strong>Estás en el Coliseo.</strong> Apunta la cámara hacia las ruinas y toca "Ver en Realidad Aumentada".';
+        texto.innerHTML = t.gpsEnElSitio;
       } else if (distancia <= RADIO_CERCA_METROS) {
         panel.className = 'lejos';
         icono.innerHTML = flechaHacia(rumbo);
-        texto.innerHTML = `Estás a <strong>${Math.round(distancia)} m</strong> del Coliseo. Sigue caminando.`;
+        texto.innerHTML = t.gpsCerca(Math.round(distancia));
       } else {
         panel.className = 'lejos';
         icono.innerHTML = flechaHacia(rumbo);
         const distanciaTexto = distancia >= 1000
           ? `${(distancia / 1000).toFixed(1)} km`
           : `${Math.round(distancia)} m`;
-        texto.innerHTML = `Estás a <strong>${distanciaTexto}</strong> del Coliseo (${direccionCardinal(rumbo)}). La vista AR funciona mejor si estás ahí en persona.`;
+        texto.innerHTML = t.gpsLejos(distanciaTexto, direccionCardinal(rumbo));
       }
     }
 
@@ -432,17 +590,16 @@
       const texto = document.getElementById('gps-texto');
       const icono = document.getElementById('gps-icono');
       const boton = document.getElementById('gps-boton');
+      const t = IDIOMAS[idiomaActual];
 
       panel.className = 'error';
       icono.textContent = '⚠';
       boton.style.display = 'inline-block';
-      boton.textContent = 'Reintentar';
+      boton.textContent = t.gpsReintentar;
 
-      if (err.code === err.PERMISSION_DENIED) {
-        texto.innerHTML = 'No diste permiso de ubicación. Actívalo en los ajustes de Safari para esta página.';
-      } else {
-        texto.innerHTML = 'No se pudo obtener tu ubicación. Revisa tu señal GPS/WiFi.';
-      }
+      texto.innerHTML = err.code === err.PERMISSION_DENIED
+        ? t.gpsPermisoDenegado
+        : t.gpsErrorGeneral;
     }
 
     // Distancia entre dos puntos GPS (fórmula de Haversine), en metros
@@ -473,7 +630,7 @@
     }
 
     function direccionCardinal(grados) {
-      const dirs = ['Norte', 'Noreste', 'Este', 'Sureste', 'Sur', 'Suroeste', 'Oeste', 'Noroeste'];
+      const dirs = IDIOMAS[idiomaActual].direcciones;
       const idx = Math.round(grados / 45) % 8;
       return dirs[idx];
     }
