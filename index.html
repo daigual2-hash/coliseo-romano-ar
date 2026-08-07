@@ -5,33 +5,68 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Coliseo Romano AR</title>
   <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Crimson+Pro:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --piedra: #E8DFC8;
+      --piedra-tenue: #C9BC9C;
+      --carbon: #241F17;
+      --carbon-hondo: #17130E;
+      --carbon-superficie: #322A1E;
+      --bronce: #6E8577;
+      --bronce-claro: #8FA696;
+      --rojo: #A63D2F;
+      --rojo-claro: #C2523F;
+      --oro: #C79A45;
+      --oro-claro: #DAB667;
+      --linea: rgba(232, 223, 200, 0.14);
+    }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      background: #1a0f0a;
-      font-family: Arial, sans-serif;
-      color: white;
+      background:
+        radial-gradient(ellipse 120% 60% at 50% 0%, #2c2517 0%, var(--carbon) 45%, var(--carbon-hondo) 100%);
+      font-family: 'Crimson Pro', serif;
+      color: var(--piedra);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
     }
+
+    /* ═══ Franja de arcos — motivo del ático del Coliseo ═══ */
+    .franja-arcos {
+      width: 100%;
+      height: 10px;
+      background-image: radial-gradient(circle at 8px 0, transparent 7px, var(--carbon-superficie) 7px);
+      background-size: 16px 16px;
+      background-position: center top;
+      opacity: 0.9;
+    }
+
     header {
       width: 100%;
-      background: #2c1810;
-      padding: 16px 20px;
+      background: var(--carbon-superficie);
+      padding: 18px 20px 16px;
       text-align: center;
-      border-bottom: 2px solid #8B6914;
+      border-bottom: 1px solid var(--linea);
     }
     header h1 {
-      font-size: 22px;
-      color: #D4A853;
-      letter-spacing: 1px;
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      font-size: 21px;
+      color: var(--piedra);
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
     }
     header p {
-      font-size: 12px;
-      color: #a08060;
-      margin-top: 4px;
+      font-family: 'Crimson Pro', serif;
+      font-style: italic;
+      font-size: 13px;
+      color: var(--bronce-claro);
+      margin-top: 5px;
+      letter-spacing: 0.3px;
     }
 
     /* ═══════════════════════════════════════
@@ -40,77 +75,86 @@
     #panel-gps {
       width: 100%;
       max-width: 480px;
-      padding: 10px 20px;
+      padding: 11px 20px;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 11px;
+      font-family: 'Inter', sans-serif;
       font-size: 13px;
-      transition: background 0.4s ease;
-      background: #2c1810;
-      border-bottom: 1px solid #4a2f1a;
+      transition: background 0.4s ease, border-color 0.4s ease;
+      background: var(--carbon-superficie);
+      border-bottom: 1px solid var(--linea);
     }
     #panel-gps.cerca {
-      background: #1f3d1a;
-      border-bottom-color: #4caf50;
+      background: #223428;
+      border-bottom: 1px solid var(--bronce-claro);
     }
     #panel-gps.lejos {
-      background: #3d2a1a;
-      border-bottom-color: #D4A853;
+      background: #2f2618;
+      border-bottom: 1px solid var(--oro);
     }
     #panel-gps.error {
-      background: #3d1a1a;
-      border-bottom-color: #c0392b;
+      background: #331d18;
+      border-bottom: 1px solid var(--rojo-claro);
     }
     #gps-icono {
-      font-size: 20px;
+      font-size: 19px;
       flex-shrink: 0;
     }
     #gps-texto {
       flex: 1;
-      line-height: 1.4;
+      line-height: 1.45;
+      color: var(--piedra-tenue);
     }
     #gps-texto strong {
-      color: #D4A853;
+      color: var(--oro-claro);
+      font-weight: 600;
     }
     #gps-boton {
-      background: #8B6914;
-      color: white;
+      background: var(--bronce);
+      color: var(--carbon-hondo);
       border: none;
-      padding: 8px 14px;
-      border-radius: 20px;
+      padding: 8px 16px;
+      border-radius: 3px;
+      font-family: 'Inter', sans-serif;
       font-size: 12px;
-      font-weight: bold;
+      font-weight: 600;
+      letter-spacing: 0.3px;
       cursor: pointer;
       white-space: nowrap;
     }
     #gps-flecha {
       display: inline-block;
-      font-size: 18px;
+      font-size: 17px;
       transition: transform 0.3s ease;
     }
 
     model-viewer {
       width: 100vw;
-      height: 68vh;
+      height: 66vh;
       background: transparent;
     }
     .ar-button {
-      background: #8B6914;
-      color: white;
+      background: linear-gradient(180deg, var(--oro-claro), var(--oro));
+      color: var(--carbon-hondo);
       border: none;
-      padding: 14px 32px;
-      border-radius: 30px;
-      font-size: 17px;
-      font-weight: bold;
+      padding: 14px 34px;
+      border-radius: 4px;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.4px;
       cursor: pointer;
-      letter-spacing: 0.5px;
-      box-shadow: 0 4px 15px rgba(212,168,83,0.4);
+      box-shadow: 0 4px 18px rgba(199,154,69,0.35), inset 0 1px 0 rgba(255,255,255,0.3);
     }
     .info {
-      font-size: 12px;
-      color: #806040;
+      font-family: 'Inter', sans-serif;
+      font-size: 11.5px;
+      color: var(--piedra-tenue);
       text-align: center;
-      padding: 12px 20px;
+      padding: 14px 20px;
+      letter-spacing: 0.2px;
+      line-height: 1.7;
     }
 
     /* ═══════════════════════════════════════
@@ -123,20 +167,22 @@
       width: 38px;
       height: 38px;
       border-radius: 50%;
-      background: #8B6914;
-      border: none;
-      color: white;
-      font-size: 18px;
+      background: var(--carbon-superficie);
+      border: 1px solid var(--bronce);
+      color: var(--bronce-claro);
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      font-size: 15px;
       cursor: pointer;
       z-index: 20;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.5);
     }
 
     #overlay-info {
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.75);
+      background: rgba(10,8,5,0.8);
       z-index: 30;
       align-items: flex-end;
       justify-content: center;
@@ -145,73 +191,90 @@
       display: flex;
     }
     #panel-info {
-      background: #2c1810;
+      background: var(--piedra);
+      color: var(--carbon);
       width: 100%;
       max-width: 520px;
       max-height: 82vh;
       overflow-y: auto;
-      border-radius: 18px 18px 0 0;
-      border-top: 2px solid #8B6914;
-      padding: 20px 22px 30px;
+      border-radius: 14px 14px 0 0;
+      border-top: 3px solid var(--rojo);
+      padding: 24px 24px 34px;
     }
     #panel-info h2 {
-      color: #D4A853;
-      font-size: 20px;
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      color: var(--carbon);
+      font-size: 21px;
+      letter-spacing: 0.5px;
       margin-bottom: 2px;
     }
     #panel-info .subtitulo {
-      color: #a08060;
-      font-size: 12px;
-      margin-bottom: 16px;
+      font-family: 'Inter', sans-serif;
+      color: var(--rojo);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      margin-bottom: 18px;
     }
     #cerrar-info {
       float: right;
       background: none;
       border: none;
-      color: #a08060;
+      color: var(--carbon);
       font-size: 22px;
       cursor: pointer;
       line-height: 1;
+      opacity: 0.55;
     }
     .dato {
       display: flex;
-      gap: 12px;
-      padding: 12px 0;
-      border-bottom: 1px solid #4a2f1a;
+      gap: 14px;
+      padding: 13px 0;
+      border-bottom: 1px solid rgba(36,31,23,0.12);
     }
     .dato:last-child {
       border-bottom: none;
     }
-    .dato-icono {
-      font-size: 22px;
+    .dato-numeral {
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--rojo);
       flex-shrink: 0;
-      width: 28px;
-      text-align: center;
+      width: 30px;
+      padding-top: 1px;
     }
     .dato-titulo {
-      color: #D4A853;
-      font-size: 13px;
-      font-weight: bold;
-      margin-bottom: 3px;
+      font-family: 'Inter', sans-serif;
+      color: var(--carbon);
+      font-size: 12.5px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+      margin-bottom: 4px;
     }
     .dato-texto {
-      color: #e8dcc8;
-      font-size: 13px;
-      line-height: 1.5;
+      font-family: 'Crimson Pro', serif;
+      color: #4a4030;
+      font-size: 15px;
+      line-height: 1.55;
     }
   </style>
 </head>
 <body>
-  <button id="boton-info" onclick="toggleInfo(true)">ℹ️</button>
+  <div class="franja-arcos"></div>
+  <button id="boton-info" onclick="toggleInfo(true)">ℹ</button>
 
   <div id="overlay-info" onclick="cerrarSiEsFondo(event)">
     <div id="panel-info">
       <button id="cerrar-info" onclick="toggleInfo(false)">✕</button>
-      <h2>🏛 El Coliseo Romano</h2>
+      <h2>El Coliseo Romano</h2>
       <p class="subtitulo">Anfiteatro Flavio · Roma, Italia</p>
 
       <div class="dato">
-        <span class="dato-icono">📅</span>
+        <span class="dato-numeral">I</span>
         <div>
           <div class="dato-titulo">Construcción</div>
           <div class="dato-texto">Iniciada en el año 72 d.C. bajo el emperador Vespasiano. Inaugurada en el 80 d.C. por su hijo Tito, con 100 días de juegos. El cuarto nivel lo añadió Domiciano en el año 82 d.C.</div>
@@ -219,7 +282,7 @@
       </div>
 
       <div class="dato">
-        <span class="dato-icono">📐</span>
+        <span class="dato-numeral">II</span>
         <div>
           <div class="dato-titulo">Dimensiones</div>
           <div class="dato-texto">189 x 156 metros de forma elíptica, con una altura de unos 48-50 metros (equivalente a un edificio de 12-15 pisos). Fue el anfiteatro más grande jamás construido.</div>
@@ -227,7 +290,7 @@
       </div>
 
       <div class="dato">
-        <span class="dato-icono">👥</span>
+        <span class="dato-numeral">III</span>
         <div>
           <div class="dato-titulo">Capacidad</div>
           <div class="dato-texto">Entre 50,000 y 80,000 espectadores, sentados según su clase social — desde el emperador y senadores cerca de la arena hasta la plebe en los asientos de madera más altos.</div>
@@ -235,7 +298,7 @@
       </div>
 
       <div class="dato">
-        <span class="dato-icono">🧱</span>
+        <span class="dato-numeral">IV</span>
         <div>
           <div class="dato-titulo">Materiales</div>
           <div class="dato-texto">Fachada de travertino, muros internos de toba volcánica, bóvedas de hormigón romano con ladrillo, y mármol en los asientos y balaustradas. Los bloques de travertino se unían con grapas de hierro, sin mortero.</div>
@@ -243,7 +306,7 @@
       </div>
 
       <div class="dato">
-        <span class="dato-icono">⚔️</span>
+        <span class="dato-numeral">V</span>
         <div>
           <div class="dato-titulo">¿Para qué se usaba?</div>
           <div class="dato-texto">Combates de gladiadores, cacerías de animales exóticos traídos de todo el imperio, ejecuciones públicas, y hasta simulacros de batallas navales en sus primeros años de uso.</div>
@@ -251,7 +314,7 @@
       </div>
 
       <div class="dato">
-        <span class="dato-icono">⛵</span>
+        <span class="dato-numeral">VI</span>
         <div>
           <div class="dato-titulo">El velarium</div>
           <div class="dato-texto">Un toldo gigante daba sombra al público, sostenido por 240 mástiles de madera en el borde superior y operado por marineros de la flota imperial, como si maniobraran las velas de un barco.</div>
@@ -259,22 +322,22 @@
       </div>
 
       <div class="dato">
-        <span class="dato-icono">🏺</span>
+        <span class="dato-numeral">VII</span>
         <div>
           <div class="dato-titulo">¿Por qué se llama "Coliseo"?</div>
-          <div class="dato-texto">Su nombre oficial era Anfiteatro Flavio. El apodo "Coliseo" no viene de su tamaño, sino de una estatua colosal de Nerón (el Coloso) que estaba junto a la entrada.</div>
+          <div class="dato-texto">Su nombre oficial era Anfiteatro Flavio. El apodo "Coliseo" no viene de su tamaño, sino de una estatua colosal de Nerón (el Coloso) que estaba junto a la entrada. Curiosamente, los romanos numeraban en rojo cada una de sus 80 entradas — la misma idea que uso arriba para ordenar estos datos.</div>
         </div>
       </div>
     </div>
   </div>
 
   <header>
-    <h1>🏛 COLISEO ROMANO</h1>
-    <p>Reconstrucción histórica · Siglo I d.C.</p>
+    <h1>Coliseo Romano</h1>
+    <p>Reconstrucción histórica · Anfiteatro Flavio, 80 d.C.</p>
   </header>
 
   <div id="panel-gps">
-    <span id="gps-icono">📍</span>
+    <span id="gps-icono">◆</span>
     <span id="gps-texto">Toca el botón para activar la ubicación</span>
     <button id="gps-boton" onclick="activarGPS()">Activar GPS</button>
   </div>
@@ -291,13 +354,13 @@
     camera-orbit="45deg 75deg 200%"
     alt="Coliseo Romano reconstruido">
     <button slot="ar-button" class="ar-button">
-      📷 Ver en Realidad Aumentada
+      Ver en Realidad Aumentada
     </button>
   </model-viewer>
 
   <p class="info">
     Rota el modelo con el dedo · Pellizca para hacer zoom<br>
-    Toca "Ver en AR" para verlo en tu entorno real
+    Toca "Ver en Realidad Aumentada" para verlo en tu entorno real
   </p>
 
   <script>
@@ -319,13 +382,13 @@
 
       if (!('geolocation' in navigator)) {
         panel.className = 'error';
-        icono.textContent = '⚠️';
+        icono.textContent = '⚠';
         texto.innerHTML = 'Este navegador no soporta geolocalización.';
         boton.style.display = 'none';
         return;
       }
 
-      icono.textContent = '🔄';
+      icono.textContent = '◌';
       texto.textContent = 'Buscando tu ubicación...';
       boton.style.display = 'none';
 
@@ -348,8 +411,8 @@
 
       if (distancia <= RADIO_EN_EL_SITIO_METROS) {
         panel.className = 'cerca';
-        icono.textContent = '✅';
-        texto.innerHTML = '<strong>¡Estás en el Coliseo!</strong> Apunta la cámara hacia las ruinas y toca "Ver en AR".';
+        icono.textContent = '✓';
+        texto.innerHTML = '<strong>Estás en el Coliseo.</strong> Apunta la cámara hacia las ruinas y toca "Ver en Realidad Aumentada".';
       } else if (distancia <= RADIO_CERCA_METROS) {
         panel.className = 'lejos';
         icono.innerHTML = flechaHacia(rumbo);
@@ -371,7 +434,7 @@
       const boton = document.getElementById('gps-boton');
 
       panel.className = 'error';
-      icono.textContent = '⚠️';
+      icono.textContent = '⚠';
       boton.style.display = 'inline-block';
       boton.textContent = 'Reintentar';
 
@@ -406,7 +469,7 @@
     }
 
     function flechaHacia(grados) {
-      return `<span id="gps-flecha" style="transform: rotate(${grados}deg)">⬆️</span>`;
+      return `<span id="gps-flecha" style="transform: rotate(${grados}deg)">▲</span>`;
     }
 
     function direccionCardinal(grados) {
