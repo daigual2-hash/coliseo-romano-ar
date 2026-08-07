@@ -33,9 +33,65 @@
       color: #a08060;
       margin-top: 4px;
     }
+
+    /* ═══════════════════════════════════════
+       PANEL DE UBICACIÓN GPS
+    ═══════════════════════════════════════ */
+    #panel-gps {
+      width: 100%;
+      max-width: 480px;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      transition: background 0.4s ease;
+      background: #2c1810;
+      border-bottom: 1px solid #4a2f1a;
+    }
+    #panel-gps.cerca {
+      background: #1f3d1a;
+      border-bottom-color: #4caf50;
+    }
+    #panel-gps.lejos {
+      background: #3d2a1a;
+      border-bottom-color: #D4A853;
+    }
+    #panel-gps.error {
+      background: #3d1a1a;
+      border-bottom-color: #c0392b;
+    }
+    #gps-icono {
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+    #gps-texto {
+      flex: 1;
+      line-height: 1.4;
+    }
+    #gps-texto strong {
+      color: #D4A853;
+    }
+    #gps-boton {
+      background: #8B6914;
+      color: white;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: bold;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    #gps-flecha {
+      display: inline-block;
+      font-size: 18px;
+      transition: transform 0.3s ease;
+    }
+
     model-viewer {
       width: 100vw;
-      height: 75vh;
+      height: 68vh;
       background: transparent;
     }
     .ar-button {
@@ -64,6 +120,12 @@
     <p>Reconstrucción histórica · Siglo I d.C.</p>
   </header>
 
+  <div id="panel-gps">
+    <span id="gps-icono">📍</span>
+    <span id="gps-texto">Toca el botón para activar la ubicación</span>
+    <button id="gps-boton" onclick="activarGPS()">Activar GPS</button>
+  </div>
+
   <model-viewer
     src="https://github.com/daigual2-hash/coliseo-ar-assets/releases/download/v1.0/coliseofinal.usdz"
     ios-src="https://github.com/daigual2-hash/coliseo-ar-assets/releases/download/v1.0/coliseofinal.usdz"
@@ -84,5 +146,121 @@
     Rota el modelo con el dedo · Pellizca para hacer zoom<br>
     Toca "Ver en AR" para verlo en tu entorno real
   </p>
+
+  <script>
+    // Coordenadas reales del Coliseo (centro aproximado de la arena)
+    const COLISEO_LAT = 41.890251;
+    const COLISEO_LON = 12.492373;
+
+    // Umbrales de distancia
+    const RADIO_EN_EL_SITIO_METROS = 150;   // dentro de esto = "estás ahí"
+    const RADIO_CERCA_METROS = 1000;        // dentro de esto = "muy cerca, camina"
+
+    let watchId = null;
+
+    function activarGPS() {
+      const panel = document.getElementById('panel-gps');
+      const texto = document.getElementById('gps-texto');
+      const icono = document.getElementById('gps-icono');
+      const boton = document.getElementById('gps-boton');
+
+      if (!('geolocation' in navigator)) {
+        panel.className = 'error';
+        icono.textContent = '⚠️';
+        texto.innerHTML = 'Este navegador no soporta geolocalización.';
+        boton.style.display = 'none';
+        return;
+      }
+
+      icono.textContent = '🔄';
+      texto.textContent = 'Buscando tu ubicación...';
+      boton.style.display = 'none';
+
+      watchId = navigator.geolocation.watchPosition(
+        onUbicacionOK,
+        onUbicacionError,
+        { enableHighAccuracy: true, maximumAge: 5000, timeout: 15000 }
+      );
+    }
+
+    function onUbicacionOK(pos) {
+      const lat = pos.coords.latitude;
+      const lon = pos.coords.longitude;
+      const distancia = distanciaMetros(lat, lon, COLISEO_LAT, COLISEO_LON);
+      const rumbo = rumboGrados(lat, lon, COLISEO_LAT, COLISEO_LON);
+
+      const panel = document.getElementById('panel-gps');
+      const texto = document.getElementById('gps-texto');
+      const icono = document.getElementById('gps-icono');
+
+      if (distancia <= RADIO_EN_EL_SITIO_METROS) {
+        panel.className = 'cerca';
+        icono.textContent = '✅';
+        texto.innerHTML = '<strong>¡Estás en el Coliseo!</strong> Apunta la cámara hacia las ruinas y toca "Ver en AR".';
+      } else if (distancia <= RADIO_CERCA_METROS) {
+        panel.className = 'lejos';
+        icono.innerHTML = flechaHacia(rumbo);
+        texto.innerHTML = `Estás a <strong>${Math.round(distancia)} m</strong> del Coliseo. Sigue caminando.`;
+      } else {
+        panel.className = 'lejos';
+        icono.innerHTML = flechaHacia(rumbo);
+        const distanciaTexto = distancia >= 1000
+          ? `${(distancia / 1000).toFixed(1)} km`
+          : `${Math.round(distancia)} m`;
+        texto.innerHTML = `Estás a <strong>${distanciaTexto}</strong> del Coliseo (${direccionCardinal(rumbo)}). La vista AR funciona mejor si estás ahí en persona.`;
+      }
+    }
+
+    function onUbicacionError(err) {
+      const panel = document.getElementById('panel-gps');
+      const texto = document.getElementById('gps-texto');
+      const icono = document.getElementById('gps-icono');
+      const boton = document.getElementById('gps-boton');
+
+      panel.className = 'error';
+      icono.textContent = '⚠️';
+      boton.style.display = 'inline-block';
+      boton.textContent = 'Reintentar';
+
+      if (err.code === err.PERMISSION_DENIED) {
+        texto.innerHTML = 'No diste permiso de ubicación. Actívalo en los ajustes de Safari para esta página.';
+      } else {
+        texto.innerHTML = 'No se pudo obtener tu ubicación. Revisa tu señal GPS/WiFi.';
+      }
+    }
+
+    // Distancia entre dos puntos GPS (fórmula de Haversine), en metros
+    function distanciaMetros(lat1, lon1, lat2, lon2) {
+      const R = 6371000;
+      const rad = Math.PI / 180;
+      const dLat = (lat2 - lat1) * rad;
+      const dLon = (lon2 - lon1) * rad;
+      const a = Math.sin(dLat / 2) ** 2 +
+                Math.cos(lat1 * rad) * Math.cos(lat2 * rad) *
+                Math.sin(dLon / 2) ** 2;
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      return R * c;
+    }
+
+    // Rumbo (bearing) en grados desde el punto 1 hacia el punto 2
+    function rumboGrados(lat1, lon1, lat2, lon2) {
+      const rad = Math.PI / 180;
+      const y = Math.sin((lon2 - lon1) * rad) * Math.cos(lat2 * rad);
+      const x = Math.cos(lat1 * rad) * Math.sin(lat2 * rad) -
+                Math.sin(lat1 * rad) * Math.cos(lat2 * rad) * Math.cos((lon2 - lon1) * rad);
+      const grados = Math.atan2(y, x) * 180 / Math.PI;
+      return (grados + 360) % 360;
+    }
+
+    function flechaHacia(grados) {
+      return `<span id="gps-flecha" style="transform: rotate(${grados}deg)">⬆️</span>`;
+    }
+
+    function direccionCardinal(grados) {
+      const dirs = ['Norte', 'Noreste', 'Este', 'Sureste', 'Sur', 'Suroeste', 'Oeste', 'Noroeste'];
+      const idx = Math.round(grados / 45) % 8;
+      return dirs[idx];
+    }
+  </script>
 </body>
 </html>
