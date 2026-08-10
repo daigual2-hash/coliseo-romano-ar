@@ -156,6 +156,12 @@
       letter-spacing: 0.2px;
       line-height: 1.7;
     }
+    .consejo-ar {
+      padding-top: 0;
+      color: var(--oro-claro);
+      max-width: 420px;
+      margin: 0 auto;
+    }
 
     /* ═══════════════════════════════════════
        BOTÓN Y PANEL DE INFORMACIÓN HISTÓRICA
@@ -397,6 +403,10 @@
     <span id="txt-info-l2">Toca "Ver en Realidad Aumentada" para verlo en tu entorno real</span>
   </p>
 
+  <p class="info consejo-ar">
+    💡 <span id="txt-consejo-ar">Para el mejor efecto: párate frente al lado norte (el mejor conservado) a unos 15-20 pasos, y toca el piso justo en la base del muro real.</span>
+  </p>
+
   <script>
     // ═══════════════════════════════════════
     //  TRADUCCIONES
@@ -418,6 +428,7 @@
         arBoton: 'Ver en Realidad Aumentada',
         infoL1: 'Rota el modelo con el dedo · Pellizca para hacer zoom',
         infoL2: 'Toca "Ver en Realidad Aumentada" para verlo en tu entorno real',
+        consejoAR: 'Para el mejor efecto: párate frente al lado norte (el mejor conservado) a unos 15-20 pasos, y toca el piso justo en la base del muro real.',
         direcciones: ['Norte', 'Noreste', 'Este', 'Sureste', 'Sur', 'Suroeste', 'Oeste', 'Noroeste'],
         panelTitulo: 'El Coliseo Romano',
         panelSubtitulo: 'Anfiteatro Flavio · Roma, Italia',
@@ -447,6 +458,7 @@
         arBoton: 'View in Augmented Reality',
         infoL1: 'Rotate the model with your finger · Pinch to zoom',
         infoL2: 'Tap "View in Augmented Reality" to see it in your surroundings',
+        consejoAR: 'Best effect: stand facing the north side (the best-preserved one) about 15-20 steps back, and tap the ground right at the base of the real wall.',
         direcciones: ['North', 'Northeast', 'East', 'Southeast', 'South', 'Southwest', 'West', 'Northwest'],
         panelTitulo: 'The Roman Colosseum',
         panelSubtitulo: 'Flavian Amphitheatre · Rome, Italy',
@@ -476,6 +488,7 @@
         arBoton: 'Vedi in Realtà Aumentata',
         infoL1: 'Ruota il modello con il dito · Pizzica per zoomare',
         infoL2: 'Tocca "Vedi in Realtà Aumentata" per vederlo nel tuo ambiente',
+        consejoAR: 'Per il miglior effetto: mettiti davanti al lato nord (il meglio conservato) a circa 15-20 passi, e tocca il suolo proprio alla base del muro reale.',
         direcciones: ['Nord', 'Nordest', 'Est', 'Sudest', 'Sud', 'Sudovest', 'Ovest', 'Nordovest'],
         panelTitulo: 'Il Colosseo Romano',
         panelSubtitulo: 'Anfiteatro Flavio · Roma, Italia',
@@ -504,6 +517,7 @@
       document.getElementById('txt-ar-boton').textContent = t.arBoton;
       document.getElementById('txt-info-l1').textContent = t.infoL1;
       document.getElementById('txt-info-l2').textContent = t.infoL2;
+      document.getElementById('txt-consejo-ar').textContent = t.consejoAR;
       document.getElementById('txt-panel-titulo').textContent = t.panelTitulo;
       document.getElementById('txt-panel-subtitulo').textContent = t.panelSubtitulo;
       t.datos.forEach((par, i) => {
