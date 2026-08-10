@@ -477,11 +477,8 @@
       Ver en Realidad Aumentada
     </button>
 
-    <!-- HOTSPOTS — posiciones ESTIMADAS, pendientes de calibrar -->
-    <button class="hotspot" slot="hotspot-n1" data-position="0 4 1" data-normal="0 0 1" onclick="mostrarHotspot(event, 'n1')"></button>
-    <button class="hotspot" slot="hotspot-n2" data-position="0 17.5 1" data-normal="0 0 1" onclick="mostrarHotspot(event, 'n2')"></button>
-    <button class="hotspot" slot="hotspot-n3" data-position="0 30 1" data-normal="0 0 1" onclick="mostrarHotspot(event, 'n3')"></button>
-    <button class="hotspot" slot="hotspot-atico" data-position="0 44 1" data-normal="0 0 1" onclick="mostrarHotspot(event, 'atico')"></button>
+    <!-- HOTSPOTS — solo datos respaldados por geometría real y visible del modelo -->
+    <button class="hotspot" slot="hotspot-arcos" data-position="0 8 1" data-normal="0 0 1" onclick="mostrarHotspot(event, 'arcos')"></button>
     <button class="hotspot" slot="hotspot-travertino" data-position="6 10 1" data-normal="0 0 1" onclick="mostrarHotspot(event, 'travertino')"></button>
     <button class="hotspot" slot="hotspot-velarium" data-position="0 50 1" data-normal="0 0 1" onclick="mostrarHotspot(event, 'velarium')"></button>
   </model-viewer>
@@ -605,26 +602,17 @@
     // ═══════════════════════════════════════
     const HOTSPOTS = {
       es: {
-        n1: ['Nivel 1 — Orden Dórico', 'Las columnas de la planta baja seguían el orden dórico romano (llamado toscano) — el más simple y robusto de los tres, igual que en los templos griegos más antiguos.'],
-        n2: ['Nivel 2 — Orden Jónico', 'En el segundo piso las columnas se vuelven más esbeltas, con capiteles en forma de espiral (volutas) — el orden jónico.'],
-        n3: ['Nivel 3 — Orden Corintio', 'El tercer nivel usa el orden corintio, el más decorado de los tres, con capiteles tallados como hojas de acanto.'],
-        atico: ['Ático — Pilastras corintias', 'El nivel más alto no tiene columnas redondas, sino pilastras planas contra el muro, también de estilo corintio.'],
+        arcos: ['Los 80 arcos', 'La planta baja tenía 80 arcos de entrada, cada uno de 4.2 metros de ancho por 7 de alto. Estaban numerados en rojo — cada boleto de arcilla indicaba por cuál arco entrar, igual que un asiento numerado hoy.'],
         travertino: ['Fachada de travertino', 'Toda la fachada exterior está hecha de bloques de piedra travertino, traídos desde canteras en Tívoli, a 30km de Roma.'],
         velarium: ['El velarium', 'Estos mástiles de madera sostenían un toldo gigante que daba sombra al público, operado por marineros de la flota imperial.'],
       },
       en: {
-        n1: ['Level 1 — Doric Order', 'Ground floor columns followed the Roman Doric order (called Tuscan) — the simplest and sturdiest of the three, like the oldest Greek temples.'],
-        n2: ['Level 2 — Ionic Order', 'On the second floor the columns become more slender, with spiral scroll capitals — the Ionic order.'],
-        n3: ['Level 3 — Corinthian Order', 'The third level uses the Corinthian order, the most ornate of the three, with capitals carved like acanthus leaves.'],
-        atico: ['Attic — Corinthian pilasters', 'The top level has no round columns, just flat pilasters against the wall, also in Corinthian style.'],
+        arcos: ['The 80 arches', 'The ground floor had 80 entrance arches, each 4.2 meters wide and 7 meters tall. They were numbered in red — each clay ticket showed which arch to enter through, like a numbered seat today.'],
         travertino: ['Travertine facade', 'The entire exterior facade is built from travertine stone blocks, quarried in Tivoli, 30km from Rome.'],
         velarium: ['The velarium', 'These wooden masts held up a giant awning that shaded the crowd, operated by sailors from the imperial fleet.'],
       },
       it: {
-        n1: ['Livello 1 — Ordine Dorico', "Le colonne del piano terra seguivano l'ordine dorico romano (detto tuscanico) — il più semplice e robusto dei tre, come nei templi greci più antichi."],
-        n2: ['Livello 2 — Ordine Ionico', 'Al secondo piano le colonne diventano più snelle, con capitelli a voluta — l\'ordine ionico.'],
-        n3: ['Livello 3 — Ordine Corinzio', "Il terzo livello usa l'ordine corinzio, il più decorato dei tre, con capitelli scolpiti a foglie d'acanto."],
-        atico: ['Attico — Lesene corinzie', "Il livello più alto non ha colonne rotonde, solo lesene piatte contro il muro, anch'esse in stile corinzio."],
+        arcos: ['I 80 archi', 'Il piano terra aveva 80 archi d\'ingresso, ognuno largo 4.2 metri e alto 7. Erano numerati in rosso — ogni biglietto di argilla indicava da quale arco entrare, come un posto numerato oggi.'],
         travertino: ['Facciata in travertino', "L'intera facciata esterna è costruita con blocchi di travertino, estratti a Tivoli, a 30km da Roma."],
         velarium: ['Il velario', 'Questi alberi di legno sorreggevano un enorme telone che dava ombra al pubblico, manovrato da marinai della flotta imperiale.'],
       },
