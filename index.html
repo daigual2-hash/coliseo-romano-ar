@@ -164,85 +164,6 @@
     }
 
     /* ═══════════════════════════════════════
-       HOTSPOTS — puntos de información sobre el modelo
-    ═══════════════════════════════════════ */
-    .hotspot {
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      background: var(--oro);
-      border: 2px solid var(--piedra);
-      box-shadow: 0 0 0 4px rgba(199,154,69,0.35), 0 2px 8px rgba(0,0,0,0.5);
-      cursor: pointer;
-      padding: 0;
-      animation: pulso 2s ease-in-out infinite;
-    }
-    @keyframes pulso {
-      0%, 100% { box-shadow: 0 0 0 4px rgba(199,154,69,0.35), 0 2px 8px rgba(0,0,0,0.5); }
-      50%      { box-shadow: 0 0 0 9px rgba(199,154,69,0.12), 0 2px 8px rgba(0,0,0,0.5); }
-    }
-
-    #panel-hotspot {
-      display: none;
-      position: fixed;
-      left: 50%;
-      bottom: 14px;
-      transform: translateX(-50%);
-      z-index: 25;
-      background: var(--piedra);
-      color: var(--carbon);
-      width: calc(100% - 28px);
-      max-width: 420px;
-      border-radius: 10px;
-      border-left: 4px solid var(--rojo);
-      padding: 14px 16px;
-      box-shadow: 0 6px 24px rgba(0,0,0,0.5);
-    }
-    #panel-hotspot.abierto { display: block; }
-    #panel-hotspot .titulo {
-      font-family: 'Cinzel', serif;
-      font-weight: 700;
-      font-size: 14px;
-      margin-bottom: 4px;
-      padding-right: 20px;
-    }
-    #panel-hotspot .texto {
-      font-family: 'Crimson Pro', serif;
-      font-size: 14px;
-      line-height: 1.5;
-      color: #4a4030;
-    }
-    #panel-hotspot .cerrar {
-      position: absolute;
-      top: 8px;
-      right: 10px;
-      background: none;
-      border: none;
-      font-size: 18px;
-      color: var(--carbon);
-      opacity: 0.5;
-      cursor: pointer;
-    }
-
-    /* ═══ Modo calibración (solo para desarrollo) ═══ */
-    #lector-coordenadas {
-      display: none;
-      position: fixed;
-      top: 60px;
-      left: 14px;
-      right: 14px;
-      z-index: 25;
-      background: rgba(20,15,10,0.92);
-      color: #7CFC7C;
-      font-family: monospace;
-      font-size: 12px;
-      padding: 10px 12px;
-      border-radius: 8px;
-      border: 1px solid var(--bronce);
-    }
-    #lector-coordenadas.activo { display: block; }
-
-    /* ═══════════════════════════════════════
        BOTÓN Y PANEL DE INFORMACIÓN HISTÓRICA
     ═══════════════════════════════════════ */
     #boton-info {
@@ -471,25 +392,11 @@
     shadow-intensity="1"
     exposure="0.9"
     camera-orbit="45deg 75deg 200%"
-    alt="Coliseo Romano reconstruido"
-    onclick="clicEnModelo(event)">
+    alt="Coliseo Romano reconstruido">
     <button slot="ar-button" class="ar-button" id="txt-ar-boton">
       Ver en Realidad Aumentada
     </button>
-
-    <!-- HOTSPOTS — solo datos respaldados por geometría real y visible del modelo -->
-    <button class="hotspot" slot="hotspot-arcos" data-position="0 8 1" data-normal="0 0 1" onclick="mostrarHotspot(event, 'arcos')"></button>
-    <button class="hotspot" slot="hotspot-travertino" data-position="6 10 1" data-normal="0 0 1" onclick="mostrarHotspot(event, 'travertino')"></button>
-    <button class="hotspot" slot="hotspot-velarium" data-position="0 50 1" data-normal="0 0 1" onclick="mostrarHotspot(event, 'velarium')"></button>
   </model-viewer>
-
-  <div id="panel-hotspot">
-    <button class="cerrar" onclick="cerrarHotspot()">✕</button>
-    <div class="titulo" id="hotspot-titulo"></div>
-    <div class="texto" id="hotspot-texto"></div>
-  </div>
-
-  <div id="lector-coordenadas"></div>
 
   <p class="info">
     <span id="txt-info-l1">Rota el modelo con el dedo · Pellizca para hacer zoom</span><br>
@@ -596,67 +503,6 @@
         ],
       },
     };
-
-    // ═══════════════════════════════════════
-    //  CONTENIDO DE LOS HOTSPOTS
-    // ═══════════════════════════════════════
-    const HOTSPOTS = {
-      es: {
-        arcos: ['Los 80 arcos', 'La planta baja tenía 80 arcos de entrada, cada uno de 4.2 metros de ancho por 7 de alto. Estaban numerados en rojo — cada boleto de arcilla indicaba por cuál arco entrar, igual que un asiento numerado hoy.'],
-        travertino: ['Fachada de travertino', 'Toda la fachada exterior está hecha de bloques de piedra travertino, traídos desde canteras en Tívoli, a 30km de Roma.'],
-        velarium: ['El velarium', 'Estos mástiles de madera sostenían un toldo gigante que daba sombra al público, operado por marineros de la flota imperial.'],
-      },
-      en: {
-        arcos: ['The 80 arches', 'The ground floor had 80 entrance arches, each 4.2 meters wide and 7 meters tall. They were numbered in red — each clay ticket showed which arch to enter through, like a numbered seat today.'],
-        travertino: ['Travertine facade', 'The entire exterior facade is built from travertine stone blocks, quarried in Tivoli, 30km from Rome.'],
-        velarium: ['The velarium', 'These wooden masts held up a giant awning that shaded the crowd, operated by sailors from the imperial fleet.'],
-      },
-      it: {
-        arcos: ['I 80 archi', 'Il piano terra aveva 80 archi d\'ingresso, ognuno largo 4.2 metri e alto 7. Erano numerati in rosso — ogni biglietto di argilla indicava da quale arco entrare, come un posto numerato oggi.'],
-        travertino: ['Facciata in travertino', "L'intera facciata esterna è costruita con blocchi di travertino, estratti a Tivoli, a 30km da Roma."],
-        velarium: ['Il velario', 'Questi alberi di legno sorreggevano un enorme telone che dava ombra al pubblico, manovrato da marinai della flotta imperiale.'],
-      },
-    };
-
-    function mostrarHotspot(evento, id) {
-      evento.stopPropagation();
-      const par = HOTSPOTS[idiomaActual][id];
-      if (!par) return;
-      document.getElementById('hotspot-titulo').textContent = par[0];
-      document.getElementById('hotspot-texto').textContent = par[1];
-      document.getElementById('panel-hotspot').classList.add('abierto');
-    }
-
-    function cerrarHotspot() {
-      document.getElementById('panel-hotspot').classList.remove('abierto');
-    }
-
-    // ═══════════════════════════════════════
-    //  MODO CALIBRACIÓN — agrega ?calibrar=1 a la URL para activarlo.
-    //  Toca cualquier punto del modelo y te muestra las coordenadas
-    //  exactas ahí, para poder ajustar los hotspots.
-    // ═══════════════════════════════════════
-    const modoCalibracion = new URLSearchParams(window.location.search).has('calibrar');
-
-    function clicEnModelo(evento) {
-      if (!modoCalibracion) return;
-      const visor = document.getElementById('visor');
-      const rect = visor.getBoundingClientRect();
-      const x = evento.clientX - rect.left;
-      const y = evento.clientY - rect.top;
-      const resultado = visor.positionAndNormalFromPoint(x, y);
-      const lector = document.getElementById('lector-coordenadas');
-      lector.classList.add('activo');
-      if (!resultado) {
-        lector.textContent = 'Sin datos en ese punto — toca directamente sobre el modelo.';
-        return;
-      }
-      const p = resultado.position;
-      const n = resultado.normal;
-      lector.textContent =
-        `data-position="${p.x.toFixed(2)} ${p.y.toFixed(2)} ${p.z.toFixed(2)}"\n` +
-        `data-normal="${n.x.toFixed(2)} ${n.y.toFixed(2)} ${n.z.toFixed(2)}"`;
-    }
 
     let idiomaActual = 'es';
 
